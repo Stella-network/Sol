@@ -7,7 +7,7 @@ const SamplePage = ():JSX.Element => {
 
   const [message, setMessage] = useState<string>("here is sample page");
 
-  const init = async () => {
+  const init = ():void => {
     
   }
 
