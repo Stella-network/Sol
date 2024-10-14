@@ -3,9 +3,9 @@
 import { Box,Paper } from "@mui/material";
 import React, { useState } from "react";
 
-const SamplePage = () => {
+const SamplePage = ():JSX.Element => {
 
-  const [message, setMessage] = useState("here is sample page");
+  const [message, setMessage] = useState<string>("here is sample page");
 
   const init = async () => {
     
