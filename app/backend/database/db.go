@@ -30,7 +30,7 @@ func InitializeDb(setting string) (err error) {
  * @return error
  */
 func InitializeDbDocker() (err error) {
-	setting := "root:password@tcp(mira_db:3306)/mira_schema?charset=utf8mb4&parseTime=True&loc=Local"
+	setting := "root:password@tcp(sol_db:3306)/sol_schema?charset=utf8mb4&parseTime=True&loc=Local"
 	return InitializeDb(setting)
 }
 
