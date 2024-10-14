@@ -1,0 +1,85 @@
+# docker-compose.yml
+version: '3'
+
+
+networks:
+  miranet:
+    driver: bridge
+    ipam:
+      driver: default
+
+services:
+  backend:
+    container_name: mira_backend
+    build: ./backend
+    ports:
+      - 8080:8080
+      - "2345:2345" #delve用のポート
+    volumes:
+      - ../app/backend:/app
+    depends_on:
+      - db
+    networks:
+      - miranet
+  
+  frontend:
+    container_name: mira_frontend
+    command: yarn dev
+    build: 
+      context: ../
+      dockerfile: mira-docker/frontend/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ../app/frontend:/app
+      - /app/frontend/node_modules
+    networks:
+      - miranet
+    environment:
+      - WATCHPACK_POLLING=true
+      
+  db:
+    container_name: mira_db
+    build: ./db
+    volumes:
+      # データの永続化
+      - ./db/strage/data/:/var/lib/mysql
+      # ダンプデータのマウント用
+      - ./db/strage/dump/:/var/dump/
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3308:3306"
+    networks:
+      - miranet
+
+  phpmyadmin:
+    container_name: mira_phpmyadmin
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+    restart: always
+    expose:
+      - "4060"
+    ports:
+      - "4060:80"
+    networks:
+      - miranet
+
+  server:
+    container_name: mira_server
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx:/etc/nginx
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - miranet
+volumes:
+  db_data:

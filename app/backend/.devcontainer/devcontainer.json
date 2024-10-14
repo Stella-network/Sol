@@ -1,0 +1,11 @@
+{
+	"service": "app",
+	"workspaceFolder": "/app",
+	// コンテナが生成されたときに、コンテナ側にインストールする拡張機能です。
+	"extensions": [
+    "golang.go",
+    "golang.go-nightly",
+		"dunstontc.vscode-go-syntax",
+		"quillaja.goasm"
+	]
+}
