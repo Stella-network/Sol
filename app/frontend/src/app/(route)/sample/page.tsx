@@ -1,6 +1,7 @@
 "use client";
 
 import { Box,Paper } from "@mui/material";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const SamplePage = ():JSX.Element => {
@@ -10,8 +11,6 @@ const SamplePage = ():JSX.Element => {
   const init = ():void => {
     
   }
-
-  init()
 
   return (
     <Paper
@@ -25,6 +24,12 @@ const SamplePage = ():JSX.Element => {
         margin: "100px auto 0 auto"
       }}
     >
+      <Image
+        src={"/next.svg"}
+        alt={"test"}
+        width={100}
+        height={100}
+      />
       <Box>
         { message }
       </Box>
