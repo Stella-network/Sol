@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 const SamplePage = ():JSX.Element => {
 
-  const [message, setMessage] = useState<string>("here is sample page");
+  const [message, setMessage] = useState<string>("みなのホームページ");
 
   const init = ():void => {
     
@@ -20,8 +20,8 @@ const SamplePage = ():JSX.Element => {
         justifyContent: 'center',
         alignItems: 'center',
         padding: 2,
-        width: "70%",
-        margin: "100px auto 0 auto"
+        width: "90%",
+        margin: "20px auto 0 auto"
       }}
     >
       <Image
