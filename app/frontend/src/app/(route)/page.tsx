@@ -1,8 +1,9 @@
 "use client";
 
+import { basePaperStyle } from "@/styles/baseStyles";
 import { Box,Paper } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const HomePage = ():JSX.Element => {
 
@@ -12,17 +13,13 @@ const HomePage = ():JSX.Element => {
     
   }
 
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <Paper
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 2,
-        width: "90%",
-        margin: "20px auto 0 auto"
-      }}
+      sx={basePaperStyle}
     >
       <Box
         sx={{
@@ -30,10 +27,10 @@ const HomePage = ():JSX.Element => {
         }}
       >
         <Image
-          src={"/next.svg"}
+          src={"/IMG_4116.jpg"}
           alt={"test"}
-          width={100}
-          height={100}
+          width={400}
+          height={320}
         />
       </Box>
       <Box>
