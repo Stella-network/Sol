@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './MoguraGame.module.css';
+import Image from 'next/image';
+import { Button } from '@mui/material';
 
 const MoguraPage = (): JSX.Element => {
-    const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(30);
-    const [moles, setMoles] = useState(Array(9).fill(false));
-    const [gameActive, setGameActive] = useState(false);
+    const [score, setScore] = useState<number>(0);
+    const [timeLeft, setTimeLeft] = useState<number>(30);
+    const [moles, setMoles] = useState<boolean[]>(Array(9).fill(false));
+    const [gameActive, setGameActive] = useState<boolean>(false);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
@@ -47,14 +49,25 @@ const MoguraPage = (): JSX.Element => {
         }
     }, [timeLeft]);
 
-    const startGame = () => {
+    /**
+     * ゲームをスタートした時に実行される関数
+     * 
+     * @return {void}
+     */
+    const startGame = ():void => {
         setScore(0);
         setTimeLeft(30);
         setMoles(Array(9).fill(false));
         setGameActive(true);
     };
 
-    const hitMole = (index: number) => {
+    /**
+     * もぐらをたたいた時に実行される関数
+     * 
+     * @param {number} index 
+     * @return {void}
+     */
+    const hitMole = (index: number):void => {
         if (moles[index] && gameActive) {
             setScore((prevScore) => prevScore + 1);
             setMoles((prevMoles) => {
@@ -67,28 +80,40 @@ const MoguraPage = (): JSX.Element => {
 
     return (
         <div className={styles.container}>
-            <h1>もぐら叩きゲーム</h1>
+            <h1>もぐらたたきゲーム</h1>
             <div className={styles.scoreTime}>
                 <p style={{fontSize: "20px"}}>スコア: {score}</p>
                 <p style={{fontSize: "20px"}}>残り時間: {timeLeft}秒</p>
             </div>
             <div className={styles.gameBoard}>
-                {moles.map((mole, index) => (
-                    <div
-                        key={index}
-                        className={`${styles.hole} ${mole ? styles.mole : ''}`}
+                {moles.map((mole:boolean, index:number) => (
+                    <Image
+                        src={mole ? '/mole.png' : '/hole.png'}
+                        alt={'mole'}
+                        width={100}
+                        height={100}
                         onClick={() => hitMole(index)}
                     />
                 ))}
             </div>
             {!gameActive && (
-                <button className={styles.startButton} onClick={startGame}>
+                <Button
+                    variant='contained'
+                    color='warning'
+                    style={{
+                        marginTop: '40px',
+                        fontWeight: 'bold',
+                        fontSize: '20px',
+                        padding: '10px 20px'
+                    }}
+                    onClick={startGame}
+                >
                     ゲームスタート
-                </button>
+                </Button>
             )}
             <div
                 style={{
-                    marginTop: '20px'
+                    marginTop: '40px'
                 }}
             >
                 <a

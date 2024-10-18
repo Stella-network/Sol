@@ -1,7 +1,7 @@
 "use client";
 
 import { basePaperStyle } from "@/styles/baseStyles";
-import { Box,Paper } from "@mui/material";
+import { Box,Button,Paper } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -35,6 +35,18 @@ const HomePage = ():JSX.Element => {
       </Box>
       <Box>
         { message }
+      </Box>
+      <Box
+        sx={{
+          marginTop: '30px'
+        }}
+      >
+        <Button
+          variant="contained"
+          color="success"
+        >
+          {`ゲームコーナー`}
+        </Button>
       </Box>
     </Paper>
   );
